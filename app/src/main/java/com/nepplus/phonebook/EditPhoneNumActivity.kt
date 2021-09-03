@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.DatePicker
+import com.nepplus.phonebook.data.PhoneNumData
 import kotlinx.android.synthetic.main.activity_edit_phone_num.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,9 +16,25 @@ class EditPhoneNumActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_phone_num)
+        setupEvents()
+        setValues()
+        
     }
 
     override fun setupEvents() {
+
+        okBtn.setOnClickListener {
+
+            val inputName = nameEdt.text.toString()
+            val inputPhoneNum = phoneNumEdt.text.toString()
+
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+
+            val birthDatStr = sdf.format(mSelectedDate.time)
+
+            val temp = PhoneNumData()
+            temp.getFileFormatData()
+        }
 
         selectBirthDayBtn.setOnClickListener {
 
