@@ -3,9 +3,13 @@ package com.nepplus.phonebook
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.widget.DatePicker
 import com.nepplus.phonebook.data.PhoneNumData
 import kotlinx.android.synthetic.main.activity_edit_phone_num.*
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,10 +34,12 @@ class EditPhoneNumActivity : BaseActivity() {
 
             val sdf = SimpleDateFormat("yyyy-MM-dd")
 
-            val birthDayStr = sdf.format(mSelectedDate.time)
+            //val birthDayStr = sdf.format(mSelectedDate.time)
 
             val savePhoneNumData = PhoneNumData(inputName, inputPhoneNum)
             savePhoneNumData.birthDay.time = mSelectedDate.time
+
+            val saveStr = savePhoneNumData.getFileFormatData()
 
         }
 
@@ -63,4 +69,41 @@ class EditPhoneNumActivity : BaseActivity() {
     override fun setValues() {
 
     }
+
+    fun savePhoneNumToFile(content: String) {
+
+        val mainFolder = File("${Environment.getExternalStorageDirectory()}/phoneBookData")
+
+        var success = true
+        if (!mainFolder.exists()) {
+            success = mainFolder.mkdir()
+        }
+
+        if (success) {
+
+            val myFile = File("phoneNumData.txt")
+
+            if (!myFile.exists()) {
+
+                success = myFile.mkdir()
+            }
+
+            if (success) {
+
+                val realFilePath = File(mainFolder, "phoneNumData.txt")
+
+                val fw = FileWriter(realFilePath)
+                val bw = BufferedWriter(fw)
+
+                bw.append(content)
+                bw.newLine()
+
+                bw.close()
+                fw.close()
+            }
+
+        }
+
+    }
+
 }
