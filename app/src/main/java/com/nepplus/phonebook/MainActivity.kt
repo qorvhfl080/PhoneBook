@@ -7,6 +7,9 @@ import android.view.View
 import com.nepplus.phonebook.adapter.PhoneNumAdapter
 import com.nepplus.phonebook.data.PhoneNumData
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -38,9 +41,38 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-        mPhoneNumList.add(PhoneNumData("이재환", "010-1234--5678", null))
+        readPhoneBookFromFile()
 
-        mAdapter = PhoneNumAdapter(mContext, R.layout.phone_num_list_item, mPhoneNumList)\
+        mPhoneNumList.add(PhoneNumData("이재환", "010-1234--5678"))
+
+        mAdapter = PhoneNumAdapter(mContext, R.layout.phone_num_list_item, mPhoneNumList)
         phoneNumListView.adapter = mAdapter
     }
+
+    fun readPhoneBookFromFile() {
+
+        val myFile = File(filesDir, "phoneBook.txt")
+
+        val fr = FileReader(myFile)
+        val br = BufferedReader(fr)
+
+        while (true) {
+            val line = br.readLine()
+
+            if (line == null)
+                break
+
+            val infos = line.split(",")
+
+            val phoneNumData = PhoneNumData(infos[0], infos[1])
+
+            mPhoneNumList.add(phoneNumData)
+
+        }
+
+        br.close()
+        fr.close()
+
+    }
+
 }

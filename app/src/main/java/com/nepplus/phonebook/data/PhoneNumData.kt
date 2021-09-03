@@ -3,7 +3,7 @@ package com.nepplus.phonebook.data
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PhoneNumData(var name: String, var phoneNum: String, birthDay: Calendar) {
+class PhoneNumData(var name: String, var phoneNum: String) {
 
     val birthDay = Calendar.getInstance()
 
