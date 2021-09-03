@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -56,6 +57,8 @@ class MainActivity : BaseActivity() {
         val fr = FileReader(myFile)
         val br = BufferedReader(fr)
 
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+
         while (true) {
             val line = br.readLine()
 
@@ -65,6 +68,8 @@ class MainActivity : BaseActivity() {
             val infos = line.split(",")
 
             val phoneNumData = PhoneNumData(infos[0], infos[1])
+
+            phoneNumData.birthDay.time = sdf.parse(infos[2])
 
             mPhoneNumList.add(phoneNumData)
 
