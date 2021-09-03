@@ -5,8 +5,6 @@ import java.util.*
 
 class PhoneNumData(var name: String, var phoneNum: String, birthDay: Calendar) {
 
-    var name: String = ""
-    var phoneNum = ""
     val birthDay = Calendar.getInstance()
 
     private val fileDateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -17,6 +15,12 @@ class PhoneNumData(var name: String, var phoneNum: String, birthDay: Calendar) {
 
 
         return "${this.name},${this.phoneNum},${fileDateFormat.format(this.birthDay.time)}"
+    }
+
+    val birthDayFormatter = SimpleDateFormat("M월 d일")
+
+    fun getFormattedBirthDay(): String {
+        return birthDayFormatter.format(this.birthDay.time)
     }
 
 }
