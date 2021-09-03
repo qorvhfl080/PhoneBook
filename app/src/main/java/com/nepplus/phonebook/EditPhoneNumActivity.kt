@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.widget.DatePicker
+import android.widget.Toast
 import com.nepplus.phonebook.data.PhoneNumData
 import kotlinx.android.synthetic.main.activity_edit_phone_num.*
 import java.io.BufferedWriter
@@ -41,6 +42,10 @@ class EditPhoneNumActivity : BaseActivity() {
 
             val saveStr = savePhoneNumData.getFileFormatData()
 
+            savePhoneNumToFile(saveStr)
+
+            Toast.makeText(mContext, "전화번호 추가됨", Toast.LENGTH_SHORT).show()
+            finish()
         }
 
         selectBirthDayBtn.setOnClickListener {

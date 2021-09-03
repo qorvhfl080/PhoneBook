@@ -29,6 +29,12 @@ class MainActivity : BaseActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        //readPhoneBookFromFile()
+    }
+
     override fun setupEvents() {
 
         addPhoneNumBtn.setOnClickListener {
@@ -42,12 +48,12 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-        readPhoneBookFromFile()
-
         mPhoneNumList.add(PhoneNumData("이재환", "010-1234--5678"))
 
         mAdapter = PhoneNumAdapter(mContext, R.layout.phone_num_list_item, mPhoneNumList)
         phoneNumListView.adapter = mAdapter
+
+        readPhoneBookFromFile()
     }
 
     fun readPhoneBookFromFile() {
@@ -77,6 +83,8 @@ class MainActivity : BaseActivity() {
 
         br.close()
         fr.close()
+
+        mAdapter.notifyDataSetChanged()
 
     }
 
