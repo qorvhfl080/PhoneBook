@@ -30,10 +30,11 @@ class EditPhoneNumActivity : BaseActivity() {
 
             val sdf = SimpleDateFormat("yyyy-MM-dd")
 
-            val birthDatStr = sdf.format(mSelectedDate.time)
+            val birthDayStr = sdf.format(mSelectedDate.time)
 
-            val temp = PhoneNumData()
-            temp.getFileFormatData()
+            val savePhoneNumData = PhoneNumData(inputName, inputPhoneNum)
+            savePhoneNumData.birthDay.time = mSelectedDate.time
+
         }
 
         selectBirthDayBtn.setOnClickListener {
