@@ -72,37 +72,16 @@ class EditPhoneNumActivity : BaseActivity() {
 
     fun savePhoneNumToFile(content: String) {
 
-        val mainFolder = File("${Environment.getExternalStorageDirectory()}/phoneBookData")
+        val myFile = File(filesDir, "phoneBook.txt")
 
-        var success = true
-        if (!mainFolder.exists()) {
-            success = mainFolder.mkdir()
-        }
+        val fw = FileWriter(myFile, true)
+        val bw = BufferedWriter(fw)
 
-        if (success) {
+        bw.append(content)
+        bw.newLine()
 
-            val myFile = File("phoneNumData.txt")
-
-            if (!myFile.exists()) {
-
-                success = myFile.mkdir()
-            }
-
-            if (success) {
-
-                val realFilePath = File(mainFolder, "phoneNumData.txt")
-
-                val fw = FileWriter(realFilePath)
-                val bw = BufferedWriter(fw)
-
-                bw.append(content)
-                bw.newLine()
-
-                bw.close()
-                fw.close()
-            }
-
-        }
+        bw.close()
+        fw.close()
 
     }
 
